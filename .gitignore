@@ -2,4 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
-taxonomy-lists/
+inat-taxonomy/*
+japan-red-lists/*

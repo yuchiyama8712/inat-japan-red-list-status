@@ -18,7 +18,7 @@ setkeyv(taxa, "id")
 ja_names <- ja_names %>%
 				left_join(taxa, by = "id")
 
-fwrite(ja_names, "wamei-gakumei.csv")
+# fwrite(ja_names, "wamei-gakumei.csv")  # ここではファイル保存は不要
 
 
 ### make Red list - iNat taxonomy list
@@ -27,14 +27,11 @@ fwrite(ja_names, "wamei-gakumei.csv")
 # packages: data.table, dplyr 
 # 上記スクリプトを実行済みとする
 
-# 親ディレクトリ上にcsvファイルを作る
-setwd("../")
-
 # set RL filename
 # 後で使い回せるように、ファイル名は変えられるようにしておく
 RL_year <- "2020"
 RL_taxon <- "ikansoku"
-RL_filename <- paste0("./japan-red-lists/", "redlist", RL_year, "_", RL_taxon, ".csv")
+RL_filename <- paste0("../japan-red-lists/", "redlist", RL_year, "_", RL_taxon, ".csv")
 
 RL_japan <- fread(RL_filename)
 setnames(RL_japan, "和名", "vernacularName")
@@ -42,4 +39,4 @@ setnames(RL_japan, "和名", "vernacularName")
 RL_bind <- RL_japan %>%
 				left_join(ja_names, by = "vernacularName")
 
-fwrite(RL_bind, "RL_inat_checklist.csv")
+fwrite(RL_bind, paste0("RL_inat_checklist_", RL_taxon, ".csv"))
